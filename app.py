@@ -18,7 +18,7 @@ st.set_page_config(
 )
 
 # -------------------------------
-# 🌈 Animated + Highlighted UI
+# 🌈 Animated + Premium UI
 # -------------------------------
 st.markdown("""
 <style>
@@ -61,7 +61,6 @@ h1 {
     animation: fadeInTagline 1.2s ease;
 }
 
-/* 🌈 Gradient Text */
 .gradient-text {
     background: linear-gradient(90deg, #00f2ff, #4facfe, #00f2ff);
     background-size: 200% auto;
@@ -107,7 +106,29 @@ h1 {
     animation: fadeInUp 0.8s ease;
 }
 
-/* 🎬 Fade In */
+/* 📦 Chunk Cards */
+.chunk-card {
+    background: rgba(255,255,255,0.08);
+    padding:18px;
+    margin-top:15px;
+    border-radius:15px;
+    border: 1px solid rgba(0,242,255,0.4);
+    backdrop-filter: blur(10px);
+    animation: fadeInUp 0.6s ease;
+}
+
+.chunk-title {
+    color:#00f2ff;
+    font-weight:600;
+}
+
+.chunk-text {
+    color:white;
+    font-size:15px;
+    line-height:1.6;
+}
+
+/* 🎬 Fade Animation */
 @keyframes fadeInUp {
     from { opacity: 0; transform: translateY(15px); }
     to { opacity: 1; transform: translateY(0); }
@@ -151,7 +172,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # -------------------------------
-# 🔐 Load Environment Variables
+# 🔐 Load Env
 # -------------------------------
 load_dotenv()
 
@@ -201,9 +222,13 @@ if query:
         unsafe_allow_html=True
     )
 
-    # Show results
+    # Highlighted chunk cards
     for i, doc in enumerate(relevant_docs):
-        with st.expander(f"📄 Source Chunk {i+1}"):
-            st.write(doc.page_content)
+        st.markdown(f"""
+        <div class="chunk-card">
+            <div class="chunk-title">📄 Source Chunk {i+1}</div>
+            <div class="chunk-text">{doc.page_content}</div>
+        </div>
+        """, unsafe_allow_html=True)
 
     st.markdown('</div>', unsafe_allow_html=True)
